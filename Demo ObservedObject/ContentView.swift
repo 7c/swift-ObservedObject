@@ -1,16 +1,26 @@
 //
-//  ContentView.swift
 //  Demo ObservedObject
-//
-//  Created by ot on 16.12.2021.
 //
 
 import SwiftUI
 
+class FancyTimer:ObservableObject {
+    @Published var counter = 0
+    init() {
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            self.counter+=1
+        }
+    }
+}
+
+
 struct ContentView: View {
+    @ObservedObject var timer1 = FancyTimer()
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        HStack {
+            Text("Counter:\(timer1.counter)")
+                .padding(10)
+        }.frame(width:300)
     }
 }
 
